@@ -1,0 +1,18 @@
+
+bin/main.out: Population.o Cell.o main.o CellParam.o
+	g++ -o bin/main.out main.o Population.o Cell.o CellParam.o
+
+main.o: src/main.cpp Population.o
+	g++ -c src/main.cpp
+
+Population.o: src/Population.h src/Population.cpp src/Patch.h src/Node.h Cell.o 
+	g++ -c -lmath src/Population.cpp
+
+Cell.o: src/Cell.h src/Cell.cpp src/Vect.h CellParam.o
+	g++ -c src/Cell.cpp
+
+CellParam.o: src/CellParam.h src/CellParam.cpp
+	g++ -c src/CellParam.cpp
+
+clean:
+	rm src/*~ *.o out/*.txt images/*.bmp
